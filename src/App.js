@@ -25,40 +25,37 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    // let CreditAPILink = 'https://moj-api.herokuapp.com/credits';  
+    let CreditAPILink = 'https://moj-api.herokuapp.com/credits';  
 
-    // try {  
-    //   let response = await axios.get(CreditAPILink);
-    //   console.log(response.data);  
-    //   // To get data object in the response, need to use "response.data"
-    //   this.setState({credits: response.data});  // Store received data in state's "users" object
-    // } 
-    // catch (error) {  // Print out errors at console when there is an error response
-    //   if (error.response) {
-    //     // The request was made, and the server responded with error message and status code.
-    //     console.log(error.response.data);  // Print out error message (e.g., Not Found)
-    //     console.log(error.response.status);  // Print out error status code (e.g., 404)
-    //   }    
-    // }
+    try {  
+      let response = await axios.get(CreditAPILink);
+      console.log(response.data);  
+      
+      this.setState({credits: response.data});  
+    } 
+    catch (error) {  
+      if (error.response) {
+        
+        console.log(error.response.data); 
+        console.log(error.response.status);  
+      }    
+    }
 
     let DebitAPILink = 'https://moj-api.herokuapp.com/debits';  
 
     try {  
       let response = await axios.get(DebitAPILink);
-      console.log(response.data);  
-      // To get data object in the response, need to use "response.data"
-      this.setState({debits: response.data});  // Store received data in state's "users" object
+      //console.log(response.data);  
+      this.setState({debits: response.data});  
     } 
-    catch (error) {  // Print out errors at console when there is an error response
+    catch (error) {  
       if (error.response) {
-        // The request was made, and the server responded with error message and status code.
-        console.log(error.response.data);  // Print out error message (e.g., Not Found)
-        console.log(error.response.status);  // Print out error status code (e.g., 404)
+        console.log(error.response.data);  
+        console.log(error.response.status);  
       }    
     }
   }  
 
-  // Update state's currentUser (userName) after "Log In" button is clicked
   mockLogIn = (logInInfo) => {  
     const newUser = {...this.state.currentUser}
     newUser.userName = logInInfo.userName
@@ -66,14 +63,8 @@ class App extends Component {
   }
 
   addDebit = (description,amount,date) => {
-    // console.log("add descriptionription");
-    // console.log(description);
-    // console.log("add debit:");
-    // console.log(amount);
     const newBalance = this.state.accountBalance + amount;
     this.setState({accountBalance: newBalance});
-    // console.log(newBalance);
-    // console.log({amount,description,date});
     let id = description;
     let entry = {id,amount,description,date}
     console.log(entry);
