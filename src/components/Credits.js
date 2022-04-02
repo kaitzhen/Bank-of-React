@@ -34,6 +34,7 @@ creditsView = () => {
             <button type="submit">Add Credit</button>
           </form>
           <AccountBalance accountBalance={this.props.accountBalance}/>
+          <p>Total Credit: {this.props.totalCredit}</p>
           <Link to="/">Return to Home</Link>
         </div>
       )
