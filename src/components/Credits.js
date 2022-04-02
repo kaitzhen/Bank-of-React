@@ -3,13 +3,36 @@ import React, {Component} from 'react';
 import AccountBalance from './AccountBalance';
 import {Link} from 'react-router-dom';
 
+
+const styles = {
+  table: {
+    backgroundColor:"#faf4ed",
+    border: "1px solid black",
+    borderCollapse: "collapse",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: "10px"
+  },
+  data: {
+    backgroundColor:"#faf4ed",
+    border: "1px solid black",
+    borderCollapse: "collapse",
+    padding: "4px"
+  }
+}
+
 class Credits extends Component {
 
 creditsView = () => {
     const { credits } = this.props;
     return credits.map((credit) => {
       let date = credit.date.slice(0,10);
-      return <li key={credit.id}>{credit.amount} {credit.description} {date}</li>
+      return  <tr key={credit.id}>
+                <td style={styles.data}>{credit.amount}</td>
+                <td style={styles.data}>{credit.description}</td>
+                <td style={styles.data}>{date}</td>
+              </tr>
+          //<li key={credit.id}>{credit.amount} {credit.description} {date}</li>
     }) 
   }
 
@@ -25,7 +48,15 @@ creditsView = () => {
     return (
         <div>
           <h1>Credits</h1>
+          <table className="center" style={styles.table}>
+          <tr>
+            <th style={styles.data}>Amount</th>
+            <th style={styles.data}>Description</th>
+            <th style={styles.data}>Date</th>
+          </tr>
           {this.creditsView()}
+        </table>
+          
           <form onSubmit={this.handleSubmit}>
             <input type="text" name="description" />
             <input type="number" name="amount" />
