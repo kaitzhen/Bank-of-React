@@ -16,12 +16,13 @@ class Home extends Component {
           <br/>
           <Link to="/login">Login</Link>
           <br/>
-          <Link to="/credits">Credits (to be implemented in the Assignment)</Link>
+          <Link to="/credits">Credits</Link>
           <br/>
           <Link to="/debits">Debits</Link>
           
           <AccountBalance accountBalance={this.props.accountBalance}/>
-          <p>Credits: {this.props.credits}</p>
+          <p>Credit: ${this.props.totalCredit}</p>
+          <p>Debit: ${this.props.totalDebit}</p>
         </div>
     );
   }

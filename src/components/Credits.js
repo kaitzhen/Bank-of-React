@@ -15,8 +15,6 @@ creditsView = () => {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    //console.log(e.target.description.value);
-    //console.log(e.target.amount.value);
     const current = new Date();
     const date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
     this.props.addCredit(e.target.description.value,e.target.amount.value,date);
@@ -35,6 +33,7 @@ creditsView = () => {
           </form>
           <AccountBalance accountBalance={this.props.accountBalance}/>
           <p>Total Credit: {this.props.totalCredit}</p>
+          <p>Total Debit: {this.props.totalDebit}</p>
           <Link to="/">Return to Home</Link>
         </div>
       )
