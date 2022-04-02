@@ -3,6 +3,23 @@ import React, { Component } from 'react'
 import AccountBalance from './AccountBalance';
 import {Link} from 'react-router-dom';
 
+const styles = {
+  table: {
+    backgroundColor:"#f0ffff",
+    border: "1px solid black",
+    borderCollapse: "collapse",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: "10px"
+  },
+  data: {
+    backgroundColor:"#f0ffff",
+    border: "1px solid black",
+    borderCollapse: "collapse",
+    padding: "4px"
+  }
+}
+
 class Debits extends Component {
 
   debitsView = () => {
@@ -10,9 +27,9 @@ class Debits extends Component {
     return debits.map((debit) => {
         let date = debit.date.slice(0,10);
         return <tr key={debit.id}>
-                  <td>{debit.amount}</td>
-                  <td>{debit.description}</td>
-                  <td>{date}</td>
+                  <td style={styles.data}>{debit.amount}</td>
+                  <td style={styles.data}>{debit.description}</td>
+                  <td style={styles.data}>{date}</td>
                </tr>
         //<li key={debit.id}>{debit.amount} {debit.description} {date}</li>
     }) 
@@ -31,11 +48,11 @@ class Debits extends Component {
     return (
       <div>
         <h1>Debits</h1>
-        <table>
+        <table className="center" style={styles.table}>
           <tr>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Date</th>
+            <th style={styles.data}>Amount</th>
+            <th style={styles.data}>Description</th>
+            <th style={styles.data}>Date</th>
           </tr>
           {this.debitsView()}
         </table>
@@ -46,9 +63,11 @@ class Debits extends Component {
             <button type="submit">Add Debit</button>
           </form>
 
+        
           <AccountBalance accountBalance={this.props.accountBalance}/>
-          <p>Total Credit: {this.props.totalCredit}</p>
-          <p>Total Debit: {this.props.totalDebit}</p>
+          <p>Total Credit: ${this.props.totalCredit}</p>
+          <p>Total Debit: ${this.props.totalDebit}</p>
+        
           <Link to="/">Return to Home</Link>
 
           
