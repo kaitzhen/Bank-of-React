@@ -29,10 +29,7 @@ class App extends Component {
     let CreditAPILink = 'https://moj-api.herokuapp.com/credits';  
 
     try {  
-      let response = await axios.get(CreditAPILink);
-      console.log("credits api");
-      console.log(response.data);  
-      
+      let response = await axios.get(CreditAPILink); 
       this.setState({credits: response.data});  
     } 
     catch (error) {  
@@ -46,8 +43,7 @@ class App extends Component {
     let DebitAPILink = 'https://moj-api.herokuapp.com/debits';  
 
     try {  
-      let response = await axios.get(DebitAPILink);
-      //console.log(response.data);  
+      let response = await axios.get(DebitAPILink); 
       this.setState({debits: response.data});  
     } 
     catch (error) {  
@@ -58,6 +54,7 @@ class App extends Component {
     }
 
     this.calculateCredits();
+    this.calculateDebits();
   
   }  
 
@@ -68,17 +65,28 @@ class App extends Component {
   }
 
   addDebit = (description,amount,date) => {
-    // const newBalance = this.state.accountBalance + amount;
-    // this.setState({accountBalance: newBalance});
     let id = description;
     let entry = {id,amount,description,date}
     console.log(entry);
     this.state.debits.push(entry);
+    this.calculateDebits();
+    
+  }
+
+  calculateDebits = () => {
+    let sum = Number('0');
+    this.state.debits.forEach((entry) => {
+      sum+= Number(entry.amount);
+      
+    })
+    this.setState({totalDebit: sum});
+    const newBalance = Number(this.state.totalCredit) - sum;
+    console.log(newBalance);
+    this.setState({accountBalance: newBalance});
     
   }
 
   addCredit = (description,amount,date) => {
-    
     let id = description;
     let entry = {id,amount,description,date}
     console.log(entry);
@@ -89,13 +97,10 @@ class App extends Component {
 
   calculateCredits = () => {
     let sum = Number('0');
-    //console.log(sum);
     this.state.credits.forEach((entry) => {
-      //console.log(`${sum}+${entry.amount}`);
       sum+= Number(entry.amount);
-      //console.log(sum);
+    
     })
-    //console.log(`result---- ${sum}`);
     this.setState({totalCredit: sum});
     const newBalance = sum - Number(this.state.totalDebit);
     console.log(newBalance);
@@ -105,13 +110,13 @@ class App extends Component {
 
   // Create Routes and React elements to be rendered using React components
   render() {  
-    const HomeComponent = () => (<Home accountBalance={this.state.accountBalance} credits={this.state.totalCredit}/>);
+    const HomeComponent = () => (<Home accountBalance={this.state.accountBalance} totalCredit={this.state.totalCredit} totalDebit={this.state.totalDebit}/>);
     const UserProfileComponent = () => (
         <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);  // Pass props to "LogIn" component
-    const DebitsComponent = () => (<Debits debits={this.state.debits} addDebit={this.addDebit} accountBalance={this.state.accountBalance}/>);  //pass debits array
-    const CreditsComponent = () => (<Credits credits={this.state.credits} addCredit={this.addCredit} totalCredit={this.state.totalCredit} accountBalance={this.state.accountBalance}/>);
+    const DebitsComponent = () => (<Debits debits={this.state.debits} addDebit={this.addDebit} totalDebit={this.state.totalDebit} totalCredit={this.state.totalCredit} accountBalance={this.state.accountBalance}/>);  
+    const CreditsComponent = () => (<Credits credits={this.state.credits} addCredit={this.addCredit} totalCredit={this.state.totalCredit} totalDebit={this.state.totalDebit} accountBalance={this.state.accountBalance}/>);
     return (
         <Router>
           <div>
