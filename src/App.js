@@ -13,7 +13,7 @@ class App extends Component {
   constructor() {  // Create and initialize state
     super(); 
     this.state = {
-      accountBalance: 1500.24,
+      accountBalance: 0,
       currentUser: {
         userName: 'Joe Smith',
         memberSince: '07/23/96',
@@ -68,8 +68,8 @@ class App extends Component {
   }
 
   addDebit = (description,amount,date) => {
-    const newBalance = this.state.accountBalance + amount;
-    this.setState({accountBalance: newBalance});
+    // const newBalance = this.state.accountBalance + amount;
+    // this.setState({accountBalance: newBalance});
     let id = description;
     let entry = {id,amount,description,date}
     console.log(entry);
@@ -89,15 +89,16 @@ class App extends Component {
 
   calculateCredits = () => {
     let sum = Number('0');
-    console.log(sum);
+    //console.log(sum);
     this.state.credits.forEach((entry) => {
-      console.log(`${sum}+${entry.amount}`);
+      //console.log(`${sum}+${entry.amount}`);
       sum+= Number(entry.amount);
-      console.log(sum);
+      //console.log(sum);
     })
-    console.log(`result---- ${sum}`);
+    //console.log(`result---- ${sum}`);
     this.setState({totalCredit: sum});
-    const newBalance = Number(this.state.totalCredit) + Number(this.state.totalDebit);
+    const newBalance = sum - Number(this.state.totalDebit);
+    console.log(newBalance);
     this.setState({accountBalance: newBalance});
     
   }
