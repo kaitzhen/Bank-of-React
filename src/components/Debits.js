@@ -4,12 +4,12 @@ import AccountBalance from './AccountBalance';
 import {Link} from 'react-router-dom';
 
 class Debits extends Component {
-  constructor () {  // Create and initialize state
-    super()
+  // constructor () {  
+  //   super()
     
 
     
-  }
+  // }
 
   debitsView = () => {
     const { debits } = this.props;

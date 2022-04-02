@@ -6,6 +6,7 @@ import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import LogIn from './components/Login';
 import Debits from './components/Debits';
+import Credits from './components/Credits';
 import axios from 'axios';
 
 class App extends Component {
@@ -29,6 +30,7 @@ class App extends Component {
 
     try {  
       let response = await axios.get(CreditAPILink);
+      console.log("credits api");
       console.log(response.data);  
       
       this.setState({credits: response.data});  
@@ -80,6 +82,7 @@ class App extends Component {
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);  // Pass props to "LogIn" component
     const DebitsComponent = () => (<Debits debits={this.state.debits} addDebit={this.addDebit} accountBalance={this.state.accountBalance}/>);  //pass debits array
+    const CreditsComponent = () => (<Credits credits={this.state.credits} accountBalance={this.state.accountBalance}/>);
     return (
         <Router>
           <div>
@@ -87,6 +90,7 @@ class App extends Component {
             <Route exact path="/userProfile" render={UserProfileComponent}/>
             <Route exact path="/login" render={LogInComponent}/>
             <Route exact path="/debits" render={DebitsComponent}/>
+            <Route exact path="/credits" render={CreditsComponent}/>
           </div>
         </Router>
     );
