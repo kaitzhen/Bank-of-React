@@ -9,7 +9,12 @@ class Debits extends Component {
     const { debits } = this.props;
     return debits.map((debit) => {
         let date = debit.date.slice(0,10);
-        return <li key={debit.id}>{debit.amount} {debit.description} {date}</li>
+        return <tr key={debit.id}>
+                  <td>{debit.amount}</td>
+                  <td>{debit.description}</td>
+                  <td>{date}</td>
+               </tr>
+        //<li key={debit.id}>{debit.amount} {debit.description} {date}</li>
     }) 
   } 
 
@@ -26,7 +31,15 @@ class Debits extends Component {
     return (
       <div>
         <h1>Debits</h1>
-        {this.debitsView()}
+        <table>
+          <tr>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date</th>
+          </tr>
+          {this.debitsView()}
+        </table>
+        
           <form onSubmit={this.handleSubmit}>
             <input type="text" name="description" placeholder='description' />
             <input type="number" name="amount" placeholder='amount' />
