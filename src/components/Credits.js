@@ -65,7 +65,7 @@ creditsView = () => {
           <AccountBalance accountBalance={this.props.accountBalance}/>
           <p>Total Credit: {this.props.totalCredit}</p>
           <p>Total Debit: {this.props.totalDebit}</p>
-          <Link to="/">Return to Home</Link>
+          <Link to="/Bank-of-React">Return to Home</Link>
         </div>
       )
   }
