@@ -21,20 +21,15 @@ class Debits extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target.description.value);
-    console.log(e.target.amount.value);
+    //console.log(e.target.description.value);
+    //console.log(e.target.amount.value);
     const current = new Date();
-    //console.log(current.getDate());
-    //console.log(current.getMonth());
-    //console.log(current.getFullYear());
-    //const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
     const date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
-    //console.log(date);
     this.props.addDebit(e.target.description.value,e.target.amount.value,date);
     
-    
-    
   }
+
+
   render() {
     return (
       <div>

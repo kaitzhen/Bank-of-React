@@ -12,12 +12,23 @@ creditsView = () => {
       return <li key={credit.id}>{credit.amount} {credit.description} {date}</li>
     }) 
   }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    //console.log(e.target.description.value);
+    //console.log(e.target.amount.value);
+    const current = new Date();
+    const date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
+    this.props.addCredit(e.target.description.value,e.target.amount.value,date);
+    
+  }
+
   render() {
     return (
         <div>
           <h1>Credits</h1>
           {this.creditsView()}
-          <form onSubmit={this.props.addCredit}>
+          <form onSubmit={this.handleSubmit}>
             <input type="text" name="description" />
             <input type="number" name="amount" />
             <button type="submit">Add Credit</button>

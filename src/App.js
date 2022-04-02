@@ -74,6 +74,16 @@ class App extends Component {
     
   }
 
+  addCredit = (description,amount,date) => {
+    const newBalance = this.state.accountBalance + amount;
+    this.setState({accountBalance: newBalance});
+    let id = description;
+    let entry = {id,amount,description,date}
+    console.log(entry);
+    this.state.credits.push(entry);
+    
+  }
+
   // Create Routes and React elements to be rendered using React components
   render() {  
     const HomeComponent = () => (<Home accountBalance={this.state.accountBalance}/>);
@@ -82,7 +92,7 @@ class App extends Component {
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />);  // Pass props to "LogIn" component
     const DebitsComponent = () => (<Debits debits={this.state.debits} addDebit={this.addDebit} accountBalance={this.state.accountBalance}/>);  //pass debits array
-    const CreditsComponent = () => (<Credits credits={this.state.credits} accountBalance={this.state.accountBalance}/>);
+    const CreditsComponent = () => (<Credits credits={this.state.credits} addCredit={this.addCredit} accountBalance={this.state.accountBalance}/>);
     return (
         <Router>
           <div>
